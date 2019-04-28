@@ -1,10 +1,10 @@
 package com.example.demo.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "film")
@@ -25,10 +25,11 @@ public class Film {
     private String release_year;
 
     @Column(name = "language_id", nullable = false)
-    private int language_id;
+    private Integer language_id;
 
+    @JsonIgnore
     @Column(name = "original_language_id")
-    private int original_language_id;
+    private Integer original_language_id;
 
     @Column(name = "rental_duration", nullable = false)
     private int rental_duration;
@@ -50,6 +51,28 @@ public class Film {
 
     @Column(name = "last_update", nullable = false)
     private Timestamp last_update;
+
+    public Film(){}
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "films")
+    private List<Actor> actors;
+
+    public void setLanguage_id(Integer language_id) {
+        this.language_id = language_id;
+    }
+
+    public void setOriginal_language_id(Integer original_language_id) {
+        this.original_language_id = original_language_id;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
 
     public int getFilm_id() {
         return film_id;

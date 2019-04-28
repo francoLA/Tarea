@@ -1,10 +1,8 @@
 package com.example.demo.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "actor")
@@ -23,7 +21,19 @@ public class Actor {
     @Column(name = "last_update", nullable = false)
     private Timestamp last_update;
 
+    @ManyToMany
+    @JoinTable(name = "film_actor", joinColumns = @JoinColumn(name = "actor_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
+    private List<Film> films;
 
+    public Actor(){}
+
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
+    }
 
     public int getActor_id() {
         return actor_id;

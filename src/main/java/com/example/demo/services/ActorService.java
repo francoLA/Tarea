@@ -1,12 +1,13 @@
 package com.example.demo.services;
 
+
 import com.example.demo.entities.Actor;
 import com.example.demo.repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/actors")
@@ -20,4 +21,17 @@ public class ActorService {
     public Iterable<Actor> getAllActors(){
         return actorRepository.findAll();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    @ResponseBody
+    public Optional<Actor> findById(@PathVariable("id") Integer id){
+        return this.actorRepository.findById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Actor createActor(Actor actor){
+        return this.actorRepository.save(actor);
+    }
+
 }
