@@ -3,7 +3,9 @@ package com.example.demo.entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin(origins = "http://localhost:8080",maxAge = 3600)
 @Entity
 @Table(name = "actor")
 public class Actor {

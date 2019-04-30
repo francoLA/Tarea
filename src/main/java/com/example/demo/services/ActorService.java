@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:8080",maxAge = 3600)
 @RestController
-@RequestMapping("/actors")
+@RequestMapping(value = "/actors")
+
 public class ActorService {
 
     @Autowired
@@ -28,9 +30,9 @@ public class ActorService {
         return this.actorRepository.findById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public Actor createActor(Actor actor){
+    @RequestMapping(method = RequestMethod.POST, value="/create")
+    @ResponseBody
+    public Actor createActor(@RequestBody Actor actor){
         return this.actorRepository.save(actor);
     }
 
